@@ -20,10 +20,24 @@ namespace BankingSystem.Tests
             Assert.AreEqual(depositAmount, bankAccount.Balance);
         }
         [Test]
-        public void AccountInicializeWithPositiveValue()
+        public void AccountInitializeWithPositiveValue()
         {
             BankAccount bankAccount = new BankAccount(123, 2000m);
             Assert.AreEqual(2000m, bankAccount.Balance);
+        }
+        [Test]
+        public void ConstructorShouldSetZeroBalance()
+        {
+            int id = 123;
+            BankAccount account = new BankAccount(id);
+            Assert.AreEqual(0, account.Balance);
+        }
+        [Test]
+        public void ConstructorShouldInitializeId()
+        {
+            int id = 123;
+            BankAccount account = new BankAccount(id);
+            Assert.AreEqual(id, account.Id);
         }
     }
 }
