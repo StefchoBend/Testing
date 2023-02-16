@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using BankingSystem;
 
 namespace BankingSystem.Tests
 {
+    [TestFixture]
     public class BankAccountTests
     {
+        [Test]
         public void DepositShouldIncreaseBalance()
         {
             BankAccount bankAccount = new BankAccount(123);
@@ -16,6 +19,7 @@ namespace BankingSystem.Tests
             bankAccount.Deposit(depositAmount);
             Assert.AreEqual(depositAmount, bankAccount.Balance);
         }
+        [Test]
         public void AccountInicializeWithPositiveValue()
         {
             BankAccount bankAccount = new BankAccount(123, 2000m);
