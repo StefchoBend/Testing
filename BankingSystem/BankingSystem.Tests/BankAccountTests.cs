@@ -16,12 +16,12 @@ namespace BankingSystem.Tests
         {
             int id = 123;
             decimal amount = 500;
-            BankAccount bankAccount = new BankAccount(id,amount);
+            BankAccount bankAccount = new BankAccount(id, amount);
             decimal depositAmount = 100;
             bankAccount.Deposit(depositAmount);
-            Assert.AreEqual(depositAmount+amount, bankAccount.Balance);
+            Assert.AreEqual(depositAmount + amount, bankAccount.Balance);
         }
-        [TestCase(123,500)]
+        [TestCase(123, 500)]
         [TestCase(123, 500.7896)]
         [TestCase(123, 0)]
         public void ConstructorShouldSetBalanceCorrectly(int id, decimal amount)
@@ -48,7 +48,7 @@ namespace BankingSystem.Tests
             {
                 int id = 123;
                 decimal amount = -100.123m;
-                
+
                 Assert.Throws<ArgumentException>(() => new BankAccount(id, amount));
             }
         }
@@ -95,6 +95,23 @@ namespace BankingSystem.Tests
                 var ex = Assert.Throws<InvalidOperationException>(() => bankAccount.Deposit(depositAmount));
                 Assert.AreEqual(ex.Message, "Negative amount");
             }
+        }
+        [TestCase(123,500)]
+        [TestCase(123,1000)]
+        public void BonusShouldIncreaseBalanceWhenBalanceIsLessOrEqual1000(int id, decimal balance)
+        {
+            BankAccount bankAccount = new BankAccount(id, balance);
+            bankAccount.Bonus();
+            Assert.AreEqual(balance, bankAccount.Balance);
+        }
+        [TestCase(123, 1100)]
+        [TestCase(123, 1999.9999)]
+        public void BonusShouldIncreaseBalanceWhenBalanceBetween1000and2000(int id, decimal balance)
+        {
+            BankAccount bankAccount = new BankAccount(id, balance);
+            var expectedResult = balance + 100;
+            bankAccount.Bonus();
+            Assert.AreEqual(expectedResult, bankAccount.Balance);
         }
 
     }
